@@ -1,50 +1,101 @@
 'use strict';
 
-var Hapi = require('hapi');
-var conf = require('./lib/conf');
-var Boom = require('boom');
-var Joi = require('joi');
-var SocketIO = require('socket.io');
-var http = require('http');
-var cookie = require('cookie');
-var Iron = require('iron');
+const Hapi = require('hapi');
+const conf = require('./lib/conf');
+const http = require('http');
+const Boom = require('boom');
+const Joi = require('joi');
+const Blankie = require('blankie');
+const Scooter = require('scooter');
+const Inert = require('inert');
 
-var services = require('./lib/services');
-var profile = require('./lib/profile');
-var auth = require('./lib/auth');
-var mute = require('./lib/mute');
+const services = require('./lib/services');
+const profile = require('./lib/profile');
+const auth = require('./lib/auth');
+const mute = require('./lib/mute');
 
-var posts = require('./lib/posts');
-var utils = require('./lib/utils');
+const posts = require('./lib/posts');
+const utils = require('./lib/utils');
 
-var chatUsers = {};
-var chatUserCount = 0;
-
-var server = new Hapi.Server();
-
-if (!conf.get('port')) {
-  console.error('\n\'port\' is a required local.json field');
-  console.error('If you don\'t have a local.json file set up, please copy local.json-dist and fill in your config info before trying again\n');
-  process.exit(1);
-}
+const server = new Hapi.Server();
 
 server.connection({
   host: conf.get('domain'),
   port: conf.get('port')
 });
 
-server.views({
-  engines: {
-    jade: require('jade')
-  },
-  isCached: process.env.node === 'production',
-  path: __dirname + '/views',
-  compileOptions: {
-    pretty: true
+server.register([Scooter,
+  {
+    register: Blankie,
+    options: {
+      defaultSrc: 'self',
+      connectSrc: ['ws:', 'wss:', 'self'],
+      imgSrc: ['self', 'data:'],
+      scriptSrc: 'self',
+      styleSrc: 'self',
+      fontSrc: 'self',
+      mediaSrc: ['self', 'blob:'],
+      generateNonces: false
+    }
+  }
+], (err) => {
+  if (err) {
+    return console.log(err);
   }
 });
 
-var routes = [
+let authSession = {
+  mode: 'try',
+  strategy: 'session'
+};
+
+server.register(require('hapi-auth-cookie'), (err) => {
+  if (err) {
+    throw err;
+  }
+
+  server.auth.strategy('session', 'cookie', {
+    password: conf.get('password'),
+    ttl: conf.get('session-ttl'),
+    cookie: conf.get('cookie'),
+    keepAlive: true,
+    isSecure: false,
+    redirectTo: '/'
+  });
+});
+
+server.register([
+  {
+    register: Inert
+  },
+  {
+    register: require('vision')
+  },
+  {
+    register: require('crumb')
+  },
+  {
+    register: require('hapi-cache-buster'),
+    options: new Date().getTime().toString()
+  }
+], (err) => {
+  if (err) {
+    console.log(err);
+  }
+
+  server.views({
+    engines: {
+      pug: require('pug')
+    },
+    isCached: process.env.node === 'production',
+    path: __dirname + '/views',
+    compileOptions: {
+      pretty: true
+    }
+  });
+});
+
+const routes = [
   {
     method: 'GET',
     path: '/',
@@ -63,27 +114,34 @@ var routes = [
   {
     method: 'GET',
     path: '/links',
-    handler: services.links
+    config: {
+      handler: services.links,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
     path: '/users',
-    handler: profile.getAllUsers
+    config: {
+      handler: profile.getAllUsers,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
     path: '/messages',
-    handler: services.messages
+    config: {
+      handler: services.messages,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
     path: '/posts',
-    handler: posts.getRecent
-  },
-  {
-    method: 'GET',
-    path: '/chat',
-    handler: services.chat
+    config: {
+      handler: posts.getRecent,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
@@ -141,7 +199,10 @@ var routes = [
   {
     method: 'GET',
     path: '/logout',
-    handler: auth.logout
+    config: {
+      handler: auth.logout,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
@@ -151,12 +212,10 @@ var routes = [
   {
     method: 'GET',
     path: '/profile',
-    handler: services.profile
-  },
-  {
-    method: 'GET',
-    path: '/profile/export{ext?}',
-    handler: profile.exportPosts
+    config: {
+      handler: services.profile,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
@@ -203,42 +262,58 @@ var routes = [
   {
     method: 'POST',
     path: '/post',
-    handler: posts.add
+    config: {
+      handler: posts.add,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
     path: '/ban',
-    handler: profile.ban
+    config: {
+      handler: profile.ban,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/ban',
-    handler: profile.ban
+    config: {
+      handler: profile.ban,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/unban',
-    handler: profile.unban
+    config: {
+      handler: profile.unban,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/post/{key}',
-    handler: posts.del
+    config: {
+      handler: posts.del,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/reply/{key}',
-    handler: posts.delReply
-  },
-  {
-    method: 'GET',
-    path: '/fixnames',
-    handler: utils.fixNames
+    config: {
+      handler: posts.delReply,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/deleteaccount',
-    handler: profile.deleteAccount
+    config: {
+      handler: profile.deleteAccount,
+      auth: authSession
+    }
   },
   {
     method: 'GET',
@@ -248,12 +323,18 @@ var routes = [
   {
     method: 'POST',
     path: '/mute',
-    handler: mute.set
+    config: {
+      handler: mute.set,
+      auth: authSession
+    }
   },
   {
     method: 'POST',
     path: '/unmute',
-    handler: mute.unset
+    config: {
+      handler: mute.unset,
+      auth: authSession
+    }
   }
 ];
 
@@ -274,22 +355,7 @@ server.route({
 server.ext('onPreResponse', function (request, reply) {
   var response = request.response;
   if (!response.isBoom) {
-    if (['/profile', '/messages', '/chat', '/posts', '/links', '/users',
-         '/deleteaccount', '/post', '/profile/export.json',
-         '/profile/export.csv'].indexOf(request.path) > -1) {
-      if (!request.session.get('uid')) {
-        return reply.redirect('/');
-      }
-    }
-
-    if (['/', '/messages', '/chat', '/posts', '/discover', '/links',
-         '/users', '/ban', '/unban', '/deleteaccount', '/post'].indexOf(request.path) > -1) {
-      if (request.session.get('uid') && !request.session.get('name')) {
-        return reply.redirect('/profile');
-      }
-    }
-
-    if (['/ban', '/unban', '/fixnames'].indexOf(request.path) > -1) {
+    if (['/ban', '/unban'].indexOf(request.path) > -1) {
       if (!!request.session.get('op') === false) {
         return reply.redirect('/');
       }
@@ -320,7 +386,7 @@ server.ext('onPreResponse', function (request, reply) {
       break;
   }
 
-  if (process.env.npm_lifecycle_event === 'dev') {
+  if (process.NODE_ENV !== 'production') {
     console.log(error.stack || error);
   }
 
@@ -334,114 +400,11 @@ server.ext('onPreResponse', function (request, reply) {
   }
 });
 
-if (process.env.NODE_ENV !== 'test') {
-  server.register({
-    register: require('crumb')
-  }, function (err) {
-    if (err) {
-      throw err;
-    }
-  });
-}
-
-var options = {
-  cookieOptions: {
-    password: conf.get('cookie'),
-    isSecure: false,
-    clearInvalid: true
-  }
-};
-
-server.register([{
-  register: require('yar'),
-  options: options
-}, {
-  register: require('hapi-cache-buster'),
-  options: new Date().getTime().toString()
-}], function (err) { });
-
-server.start(function (err) {
-
+server.start((err) => {
   if (err) {
     console.error(err.message);
     process.exit(1);
   }
 
   console.log('\n  b.b.s. server running at ' + server.info.uri + '  \n');
-
-  var io = SocketIO.listen(server.listener);
-
-  io.on('connection', function (socket) {
-    try {
-      var cookies = cookie.parse(socket.request.headers.cookie);
-
-      console.log('connected to local socket');
-
-      socket.on('user', function () {
-        if (socket.user || socket.uid || !cookies.session) {
-          return;
-        }
-
-        Iron.unseal(cookies.session, conf.get('cookie'), Iron.defaults, function (err, session) {
-          if (err || !session._store) return;
-
-          var user = session._store;
-
-          profile.get(user.phone, function (err) {
-            if (err) {
-              delete chatUsers[user.uid];
-              chatUserCount --;
-              return;
-            }
-
-            console.log('user connected ', user)
-            socket.user = user.name;
-            socket.uid = user.uid;
-            chatUsers[user.uid] = user.name;
-            chatUserCount ++;
-
-            io.emit('users', chatUsers);
-            socket.emit('name', user.name);
-          });
-        });
-      });
-
-      socket.on('disconnect', function () {
-        console.log('disconnected')
-
-        var userStillConnected = io.sockets.sockets.reduce(function(memo, sock) {
-          return memo || sock.uid === socket.uid;
-        }, false);
-        if (!userStillConnected) {
-          delete chatUsers[socket.uid];
-        }
-
-        chatUserCount --;
-        if (chatUserCount < 0) {
-          chatUserCount = 0;
-        }
-
-        socket.broadcast.emit('users', chatUsers);
-      });
-
-      socket.on('message', function (data) {
-        var messageLength = data.trim().length;
-        if (socket.user && messageLength > 0 && messageLength < 251) {
-          io.emit('message', {
-            name: socket.user,
-            uid: socket.uid,
-            timestamp: (new Date()).toISOString(),
-            message: utils.autoLink(data, {
-              htmlEscapeNonEntities: true,
-              targetBlank: true
-            })
-          });
-        }
-      });
-    } catch (err) { }
-  });
 });
-
-exports.getServer = function () {
-  return server;
-};

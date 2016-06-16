@@ -3,6 +3,8 @@
     "publicDomain": "bigboringsystem.com",
     "port": 3000,
     "cookie": "secret",
+    "password": "session password",
+    "session-ttl": 100000000,
     "analytics": false,
     "twilioSID": "<sid>",
     "twilioToken": "<auth token>",

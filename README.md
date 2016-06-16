@@ -42,39 +42,3 @@ Make sure to add yourself as an op in local.json by entering your UID. You can f
 
 [post_no_threading]: http://bigboringsystem.com/post/user!2c0346c9-6434-41aa-8ee8-4167c1af5b70!1419794369
 
-## Tests
-
-    npm test
-
-## OMG DOCKER
-
-If you want to deploy your bbs in less than 10 minutes it is fairly trivial with docker!  A really simple way to get started is by using the docker application image on Digital Ocean.
-
-Clone this repo, and create a local.json.
-
-**Build a container:**
-
-```bash
-docker build -t bbs-container .
-```
-**Run the container:**
-```
-
-docker run -d -p 80:3000 --name bbs -v $PWD/db:/db bbs-container
-```
-
-**-d** *runs the container as a daemon process*
-
-**-p 80:3000** *binds port 3000 of the app to port 80 on our server*
-
-**--name bbs** *a name we can use to refer to this process*
-
-**-v $PWD/db:/db** *mount the db folder in our present working directory to the db folder used by the app (makes database persistent)*
-
-**bbs-container** *the name of the container to use*
-
-
-
-You can now easily stop and start this process with ```docker stop bbs && docker start bbs```
-
-If you make changes you will need to rebuild the container.
