@@ -1,6 +1,6 @@
-# big boring system
+# bbs
 
-[![Dependency Status](https://david-dm.org/bigboringsystem/bbs2.svg)](https://david-dm.org/bigboringsystem/bbs2)  [![devDependency Status](https://david-dm.org/bigboringsystem/bbs2/dev-status.svg)](https://david-dm.org/bigboringsystem/bbs2#info=devDependencies)
+[![Dependency Status](https://david-dm.org/revolting/bbs.svg)](https://david-dm.org/revolting/bbs)  [![devDependency Status](https://david-dm.org/revolting/bbs/dev-status.svg)](https://david-dm.org/revolting/bbs#info=devDependencies)
 
 ## Setup
 
