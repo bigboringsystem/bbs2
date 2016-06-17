@@ -181,6 +181,10 @@ pre {
   padding: 1%;
 }
 
+.reply-content form {
+  margin: 0;
+}
+
 .reply-content button {
   position: absolute;
   top: -10px;
