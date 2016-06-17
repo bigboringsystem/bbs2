@@ -56,6 +56,10 @@ h2 {
   margin: 1px;
 }
 
+.user section pre, .user section ul {
+  padding: 10px;
+}
+
 .user section pre {
   margin-top: 0;
 }
