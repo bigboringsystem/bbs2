@@ -169,9 +169,13 @@ pre {
   max-width: 800px;
 }
 
+#replies {
+  margin: 10px 0;
+}
+
 .reply-content {
   background-color: #fff;
-  margin-bottom: 2px;
+  margin: 2px;
 }
 
 .reply-content form {
