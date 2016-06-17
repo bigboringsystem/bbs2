@@ -8,9 +8,9 @@ block content
 
   if op && !userOp && !banned
     form(method='post', action='/ban')
-      input(type='hidden', name='phone', value='#{phone}')
-      input(type='hidden', name='uid', value='#{uid}')
-      input(type='hidden', name='crumb', value='#{crumb}')
+      input(type='hidden', name='phone', value=phone')
+      input(type='hidden', name='uid', value=uid')
+      input(type='hidden', name='crumb', value=crumb)
       button.ban(type='submit') ban this account
 
   if banned
@@ -18,21 +18,21 @@ block content
 
     if op
       form(method='post', action='/unban')
-        input(type='hidden', name='phone', value='#{phone}')
-        input(type='hidden', name='uid', value='#{uid}')
-        input(type='hidden', name='crumb', value='#{crumb}')
+        input(type='hidden', name='phone', value=phone)
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
         button.unban(type='submit') unban this account
 
   if session && (uid !== session)
     if muted
       form(method='post', action='/unmute')
-        input(type='hidden', name='uid', value='#{uid}')
-        input(type='hidden', name='crumb', value='#{crumb}')
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
         button.unban(type='submit') unmute
     else
       form(method='post', action='/mute')
-        input(type='hidden', name='uid', value='#{uid}')
-        input(type='hidden', name='crumb', value='#{crumb}')
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
         button.unban(type='submit') mute
 
   h2 websites
@@ -47,11 +47,11 @@ block content
     for post in posts
       article
         a.time(href='/post/post!#{post.value.postid}')
-          time(datetime='#{post.value.created}')= post.value.created
+          time(datetime=post.value.created)= post.value.created
         pre!= post.value.content
     .pagination
       if next && lastKey
-        a(href='/user/#{uid}?last=#{lastKey}') older
+        a(href='/user/' + uid + '?last=' + lastKey) older
 
   if op && !userOp
     h2.delete-account Delete account
@@ -59,8 +59,8 @@ block content
     p If you delete this account, all posts associated with this will be removed.
 
     form(method='post', action='/deleteaccount')
-      input(type='hidden', name='uid', value='#{uid}')
-      input(type='hidden', name='crumb', value='#{crumb}')
+      input(type='hidden', name='uid', value=uid)
+      input(type='hidden', name='crumb', value=crumb)
       button.ban(type='submit') delete account
 
 block login

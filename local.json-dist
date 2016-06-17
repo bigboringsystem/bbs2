@@ -1,9 +1,9 @@
 {
     "domain": "localhost",
-    "publicDomain": "bigboringsystem.com",
+    "publicDomain": "bbs.revolting.me",
     "port": 3000,
-    "cookie": "secret",
-    "password": "session password",
+    "cookie": "session",
+    "password": "secretsecretsecretsecretsecret11111111",
     "session-ttl": 100000000,
     "analytics": false,
     "twilioSID": "<sid>",

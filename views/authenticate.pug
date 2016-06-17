@@ -3,19 +3,13 @@ extend layout
 block content
   h1 check your phone
 
-  if (process.env.npm_lifecycle_event === 'dev')
-    p
-      strong Development Mode:
-      span= ' Use ' + testPin + ' to login'
-
-  else
-    p Enter the 4-digit PIN from your phone to log in.
+  p Enter the 4-digit PIN from your phone to log in.
 
 block login
   form(method='post', action='/authenticate')
     input(type='text', name='pin', autocomplete='off', required, autofocus)
     if error
       p.error= error
-    input(type='hidden', name='crumb', value='#{crumb}')
-    button(type='submit') log in
+    input(type='hidden', name='crumb', value=crumb)
+    button(type='submit') get pin
 

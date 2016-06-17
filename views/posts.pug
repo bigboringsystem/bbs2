@@ -22,15 +22,15 @@ block content
   #posts
     for post in posts
       article
-        a.time(href='/post/post!#{post.value.postid}')
-          time(datetime='#{post.value.created}')= post.value.created
+        a.time(href='/post/post!' + post.value.postid)
+          time(datetime=post.value.created)= post.value.created
         if post.value.reply
           p.reply in reply to:&#xa0;
             != post.value.reply
         pre!= post.value.content
     .pagination
       if next && lastKey
-        a(href='/posts?last=#{lastKey}') older
+        a(href='/posts?last=' + lastKey) older
 
 block scripts
   script(type='text/javascript', src='/js/query-string.js' + version.cache)

@@ -9,7 +9,7 @@ block content
     if error
       p.error= error
     label name*
-      input(type='text', name='name', value!='#{user && user.name ? user.name : ""}', required)
+      input(type='text', name='name', value='#{user && user.name ? user.name : ""}', required)
     label websites (space delimited)
       input(type='text', name='websites', value='#{user && user.websites ? user.websites : ""}')
     label bio
@@ -20,36 +20,16 @@ block content
       else
         input(type='checkbox', name='showreplies')
       = 'show replies to posts by default'
-    input(type='hidden', name='crumb', value='#{crumb}')
+    input(type='hidden', name='crumb', value=crumb)
     button(type='submit') save
-
-  form(method='post', action='/add_phone')
-    label add a second phone number to this account
-      input(type='tel', name='phone', value='#{phone}')
-    if phone
-      label enter the PIN sent to your secondary phone for validation
-        input(type='text', name='pin')
-    input(type='hidden', name='crumb', value='#{crumb}')
-    button(type='submit') add
-
-  h2 secondary numbers
-
-  for number in user.secondary
-    p ********#{number.lastTwo}
-
-  h2 export posts
-
-  a(href='/profile/export.json') .json
-  | &#xa0;
-  a(href='/profile/export.csv') .csv
 
   if (op && !userOp)
     h2.delete-account Delete account
     p If you delete this account, all posts associated with this will be removed.
 
     form(method='post', action='/deleteaccount')
-      input(type='hidden', name='uid', value='#{session}')
-      input(type='hidden', name='crumb', value='#{crumb}')
+      input(type='hidden', name='uid', value=session)
+      input(type='hidden', name='crumb', value=crumb)
       button.ban(type='submit') delete account
   else if session
     h2.delete-account Delete account

@@ -14,7 +14,6 @@
     "blankie": "^1.2.0",
     "boom": "^3.2.1",
     "concat-stream": "^1.5.1",
-    "cookie": "^0.3.1",
     "crumb": "^6.0.1",
     "hapi": "^13.4.1",
     "hapi-auth-cookie": "^6.1.1",
@@ -26,14 +25,13 @@
     "level": "^1.4.0",
     "level-ttl": "^3.1.0",
     "nconf": "^0.8.4",
-    "pug": "^2.0.0-beta2",
+    "pug": "^2.0.0-beta3",
     "rss": "^1.2.1",
     "scooter": "^3.0.0",
-    "twilio": "^2.9.1",
+    "twilio-party": "^2.0.0",
     "twitter-text": "^1.13.4",
     "uuid": "^2.0.2",
-    "vision": "^4.1.0",
-    "yar": "^7.0.2"
+    "vision": "^4.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.9.2"

@@ -7,7 +7,7 @@ block content
     for post in posts
       article
         time
-          a(href='/post/post!#{post.value.postid}')= post.value.created
+          a(href='/post/post!' + post.value.postid)= post.value.created
         p.posted
           | posted by&#xa0;
           a(href='/user/#{post.value.uid}')= post.value.name
@@ -18,6 +18,6 @@ block content
 
     .pagination
       if next && lastKey
-        a(href='/discover?last=#{lastKey}') older
+        a(href='/discover?last=' + lastKey) older
 
 block login
