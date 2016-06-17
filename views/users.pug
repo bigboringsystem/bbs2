@@ -3,9 +3,9 @@ extend layout
 block content
   h1 community listing
 
-  ul.links.links-users.cf
+  ul.links.links-users
     for user in users
-      li(class='#{user.op ? "op" : ""}')
-        a(href='/user/' + user.value.uid)= user.value.name
+      li(class=user.op ? "op" : "")
+        a(href='/user/' + user.value.uid)= user.value.name || '???'
 
 block login

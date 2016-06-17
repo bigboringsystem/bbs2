@@ -114,6 +114,15 @@ button {
   margin: 5px 0;
 }
 
+.links-users li {
+  width: 33%;
+  float: left;
+}
+
+li.op:before {
+  content: '*';
+}
+
 .smooth {
   width: 300px;
   height: 200px;
