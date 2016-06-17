@@ -98,7 +98,7 @@ header a:hover, .actions li a:hover {
   background-color: #111;
 }
 
-.error {
+p.error {
   border: 1px solid #f00;
   color: #f00;
   margin: 20px 0;
