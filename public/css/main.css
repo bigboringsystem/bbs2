@@ -31,6 +31,14 @@ h2 {
   font-size: 1.1rem;
 }
 
+.user-wrapper {
+  padding-left: 10px;
+}
+
+.user-wrapper p {
+  margin: 10px 0;
+}
+
 .user-wrapper h1 {
   background-color: rgba(255, 255, 255, 0.7);
 }
