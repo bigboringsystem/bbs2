@@ -22,7 +22,7 @@ block content
 
     #replies
       if post.replies && post.replies.length
-        p.reply replies:
+        h2 Replies:
         for reply in post.replies
           .reply-content
             if session && (session === post.uid || op)
@@ -36,6 +36,7 @@ block content
 
             = ' - '
             a(href='/user/' + reply.uid)!= reply.name
+            pre!= reply.content
 
 block login
 
