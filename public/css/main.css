@@ -115,8 +115,11 @@ button {
 }
 
 .links-users li {
-  width: 33%;
+  margin: 1% 0;
+  width: 30%;
   float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 li.op:before {
