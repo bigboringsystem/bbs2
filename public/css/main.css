@@ -128,7 +128,7 @@ form input[type=text] {
   background-color: #fff;
 }
 
-#posts .reply, .reply-to-post {
+#posts .reply, .reply-to-post, .posted {
   font-style: italic;
   margin: 10px 0;
   font-size: 0.85rem;
