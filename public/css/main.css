@@ -142,4 +142,5 @@ form input[type=text] {
 pre {
   padding: 10px;
   margin-top: 10px;
+  white-space: pre-wrap;
 }
