@@ -176,8 +176,13 @@ pre {
 .reply-content {
   background-color: #fff;
   margin: 2px;
+  position: relative;
+  width: 89%;
+  padding: 1%;
 }
 
-.reply-content form {
-  float: right;
+.reply-content button {
+  position: absolute;
+  top: -10px;
+  right: -30px;
 }
