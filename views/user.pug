@@ -1,52 +1,57 @@
 extend layout
 
-block content
-  h1!= user
+block subheader
+  .user-wrapper(style=hex ? hex : "")
+    h1= user
 
-  if userOp
-    p This user is an operator
+    if userOp
+      p This user is an operator
 
-  if op && !userOp && !banned
-    form(method='post', action='/ban')
-      input(type='hidden', name='phone', value=phone')
-      input(type='hidden', name='uid', value=uid')
-      input(type='hidden', name='crumb', value=crumb)
-      button.ban(type='submit') ban this account
-
-  if banned
-    p This account is currently banned.
-
-    if op
-      form(method='post', action='/unban')
+    if op && !userOp && !banned
+      form(method='post', action='/ban')
         input(type='hidden', name='phone', value=phone)
         input(type='hidden', name='uid', value=uid)
         input(type='hidden', name='crumb', value=crumb)
-        button.unban(type='submit') unban this account
+        button.ban(type='submit') ban this account
 
-  if session && (uid !== session)
-    if muted
-      form(method='post', action='/unmute')
-        input(type='hidden', name='uid', value=uid)
-        input(type='hidden', name='crumb', value=crumb)
-        button.unban(type='submit') unmute
-    else
-      form(method='post', action='/mute')
-        input(type='hidden', name='uid', value=uid)
-        input(type='hidden', name='crumb', value=crumb)
-        button.unban(type='submit') mute
+    if banned
+      p This account is currently banned.
 
-  h2 websites
-  ul.websites
-    li!= websites
+      if op
+        form(method='post', action='/unban')
+          input(type='hidden', name='phone', value=phone)
+          input(type='hidden', name='uid', value=uid)
+          input(type='hidden', name='crumb', value=crumb)
+          button.unban(type='submit') unban this account
 
-  h2 bio
-  pre!= bio
+    if session && (uid !== session)
+      if muted
+        form(method='post', action='/unmute')
+          input(type='hidden', name='uid', value=uid)
+          input(type='hidden', name='crumb', value=crumb)
+          button.unban(type='submit') unmute
+      else
+        form(method='post', action='/mute')
+          input(type='hidden', name='uid', value=uid)
+          input(type='hidden', name='crumb', value=crumb)
+          button.unban(type='submit') mute
 
+    .user
+      section
+        h2 websites
+        ul.websites
+          li!= websites
+
+      section
+        h2 bio
+        pre!= bio
+
+block content
   h2 recent posts
   #posts
     for post in posts
       article
-        a.time(href='/post/post!#{post.value.postid}')
+        a.time(href='/post/post!' + post.value.postid)
           time(datetime=post.value.created)= post.value.created
         pre!= post.value.content
     .pagination

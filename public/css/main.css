@@ -1,58 +1,137 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
-  quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+a {
+  color: #00aeff;
 }
 
-/* Main styles */
-
-body {
-  font-family: 'Roboto Mono';
+a:visited {
+  color: #c473d5;
 }
 
 .wrapper {
   margin: 10px;
+}
+
+.landing section {
+  margin: 30px 0;
+}
+
+.landing section h2 {
+  background-color: transparent;
+}
+
+.user-wrapper h1, .user-wrapper h2, .wrapper h1, .wrapper h2 {
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  background-color: #fff;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 2px;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+.user-wrapper h1 {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.user {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.user section  {
+  flex: 1;
+  margin-bottom: 20px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 1px;
+}
+
+.user section pre {
+  margin-top: 0;
+}
+
+.user section h2 {
+  margin: 0;
+}
+
+article {
+  margin: 15px 0;
+}
+
+#privacy {
+  padding: 0 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#privacy h1, #privacy h2 {
+  font-size: 1rem;
+}
+
+#privacy p, #privacy ol {
+  font-size: 0.8rem;
+  margin: 10px 0;
+}
+
+#privacy ol {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+label {
+  font-size: 0.8rem;
+}
+
+textarea {
+  display: block;
+  resize: vertical;
+  width: 90%;
+}
+
+button {
+  font-size: 1rem;
+  text-transform: uppercase;
+  background-color: #39ebaa;
+  display: block;
+  margin: 20px 0;
+}
+
+.links li {
+  margin: 5px 0;
+}
+
+section {
+  margin: 10px 0;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+form input[type=text] {
+  width: 50%;
+}
+
+#posts article {
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #fff;
+}
+
+#posts .reply, .reply-to-post {
+  font-style: italic;
+  margin: 10px 0;
+  font-size: 0.85rem;
+}
+
+.delete button {
+  background-color: #ee1864;
+  color: #ffbcd4;
+}
+
+pre {
+  padding: 10px;
+  margin-top: 10px;
 }

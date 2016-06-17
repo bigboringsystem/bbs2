@@ -8,31 +8,39 @@ block content
   form(method='post', action='/profile')
     if error
       p.error= error
-    label name*
-      input(type='text', name='name', value='#{user && user.name ? user.name : ""}', required)
-    label websites (space delimited)
-      input(type='text', name='websites', value='#{user && user.websites ? user.websites : ""}')
-    label bio
-      textarea(rows='5', cols='50', name='bio')= (user && user.bio ? user.bio : "")
-    label
-      if user && user.showreplies
-        input(type='checkbox', name='showreplies', checked)
-      else
-        input(type='checkbox', name='showreplies')
-      = 'show replies to posts by default'
+    section
+      label name*
+        input(type='text', name='name', value=user && user.name ? user.name : "", required)
+    section
+      label websites (space delimited)
+        input(type='text', name='websites', value=user && user.websites ? user.websites : "")
+    section
+      label bio
+        textarea(rows='5', cols='50', name='bio')= (user && user.bio ? user.bio : "")
+    section
+      label hex value (for decorating your public profile)
+        input(type='text', name='hex', value=user && user.hex ? user.hex : "", placeholder='#F1F1F1')
+    section
+      label
+        if user && user.showreplies
+          input(type='checkbox', name='showreplies', checked)
+        else
+          input(type='checkbox', name='showreplies')
+        = 'show replies to posts by default'
     input(type='hidden', name='crumb', value=crumb)
-    button(type='submit') save
+    button(type='submit') save changes
 
-  if (op && !userOp)
-    h2.delete-account Delete account
-    p If you delete this account, all posts associated with this will be removed.
+  section
+    if (op && !userOp)
+      h2.delete-account Delete account
+      p If you delete this account, all posts associated with this will be removed.
 
-    form(method='post', action='/deleteaccount')
-      input(type='hidden', name='uid', value=session)
-      input(type='hidden', name='crumb', value=crumb)
-      button.ban(type='submit') delete account
-  else if session
-    h2.delete-account Delete account
-    p Please contact an operator to delete your account.
+      form(method='post', action='/deleteaccount')
+        input(type='hidden', name='uid', value=session)
+        input(type='hidden', name='crumb', value=crumb)
+        button.ban(type='submit') delete account
+    else if session
+      h2.delete-account Delete account
+      p Please contact an operator to delete your account.
 
 block login

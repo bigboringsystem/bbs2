@@ -24,7 +24,7 @@ server.register([Scooter,
       connectSrc: ['ws:', 'wss:', 'self'],
       imgSrc: ['self', 'data:'],
       scriptSrc: 'self',
-      styleSrc: ['self', 'https://fonts.googleapis.com'],
+      styleSrc: ['self', 'unsafe-inline', 'https://fonts.googleapis.com'],
       fontSrc: ['self', 'https://fonts.gstatic.com'],
       mediaSrc: ['self', 'blob:'],
       generateNonces: false
@@ -46,8 +46,7 @@ server.register(require('hapi-auth-cookie'), (err) => {
     ttl: conf.get('session-ttl'),
     cookie: conf.get('cookie'),
     keepAlive: true,
-    isSecure: process.env.node === 'production',
-    redirectTo: '/'
+    isSecure: process.env.node === 'production'
   });
 });
 
@@ -96,11 +95,11 @@ server.route({
   }
 });
 
-server.ext('onPreResponse', function (request, reply) {
+server.ext('onPreResponse', (request, reply) => {
   let response = request.response;
   if (!response.isBoom) {
     if (['/ban', '/unban'].indexOf(request.path) > -1) {
-      if (!!request.session.get('op') === false) {
+      if (!!request.auth.credentials.op === false) {
         return reply.redirect('/');
       }
     }
@@ -130,7 +129,7 @@ server.ext('onPreResponse', function (request, reply) {
       break;
   }
 
-  if (process.NODE_ENV !== 'production') {
+  if (process.env.node !== 'production') {
     console.log(error.stack || error);
   }
 

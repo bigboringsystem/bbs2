@@ -6,11 +6,11 @@ block content
   #posts
     for post in posts
       article
-        a.time(href='/post/post!#{post.value.postid}')
-          time(datetime='#{post.value.created}')= post.value.created
+        a.time(href='/post/post!' + post.value.postid)
+          time(datetime=post.value.created)= post.value.created
         p.posted
           | posted by&#xa0;
-          a(href='/user/#{post.value.uid}')!= post.value.name
+          a(href='/user/' + post.value.uid)!= post.value.name
         if post.value.reply
           p.reply in reply to:&#xa0;
             != post.value.reply

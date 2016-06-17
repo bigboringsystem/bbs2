@@ -1,8 +1,8 @@
 extend error_layout
 
 block content
-  h1 error #{code} #{httpMessage}
+  h1 error #{code}
 
-  h2= reason
+  h2= httpMessage
 
   a(href='/') go back and try again

@@ -4,19 +4,22 @@ block content
   h1 my posts
 
   form(method='post', action='/post')
-    label reply links to previous posts? (space delimited)
-      input#reply-to(type='text', name='reply')
-    label content
-      textarea(rows='10', cols='90', name='content', required)
-    label
-      if user.showreplies
-        input(type='checkbox', name='showreplies', checked)
-      else
-        input(type='checkbox', name='showreplies')
-      = 'show replies to this post'
+    section
+      label reply links to previous posts? (space delimited)
+        input#reply-to(type='text', name='reply')
+    section
+      label content
+        textarea(rows='10', cols='90', name='content', required)
+    section
+      label
+        if user.showreplies
+          input(type='checkbox', name='showreplies', checked)
+        else
+          input(type='checkbox', name='showreplies')
+        = 'show replies to this post'
     if error
       p.error= error
-    input(type='hidden', name='crumb', value='#{crumb}')
+    input(type='hidden', name='crumb', value=crumb)
     button(type='submit') save
 
   #posts

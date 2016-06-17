@@ -1,0 +1,28 @@
+body {
+  background: linear-gradient(-25deg, #b02ae2 0%, #39ebaa 100%);
+  background-attachment: fixed;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 2.8rem;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.6rem;
+}
+
+.wrapper a {
+  font-size: 1.1rem;
+  background-color: #39ebaa;
+  text-decoration: none;
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.wrapper {
+  background-image: url(/favicon.ico);
+  text-align: center;
+  padding: 20px 10px;
+}

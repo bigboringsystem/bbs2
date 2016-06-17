@@ -5,9 +5,9 @@ block content
     form(method='POST', action='/post/' + id, class='delete')
       input(type='hidden', name='uid', value=post.uid)
       input(type='hidden', name='crumb', value=crumb)
-      button(type='submit') x delete
+      button(type='submit') delete this post
   h1
-    a(href='/user/' + post.uid)!= post.name
+    a(href='/user/' + post.uid)= post.name
   article
     time(datetime=post.created)= post.created
 
@@ -34,7 +34,6 @@ block content
 
         = ' - '
         a(href='/user/' + reply.uid)!= reply.name
-        br
 
 block login
 

@@ -6,33 +6,31 @@ html
     meta(content='width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', name='viewport')
     meta(content='yes', name='apple-mobile-web-app-capable')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto+Mono')
+    link(rel='stylesheet', href='/css/shared.css' + version.cache)
     link(rel='stylesheet', href='/css/main.css' + version.cache)
     link(rel='alternate', href='/rss', type='application/atom+xml', title='BBS Feed')
     if analytics
       != "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', '" + analytics + "', 'auto');ga('send', 'pageview');</script>"
 
   body
-    .back
     header
-      p
-        a(href='/') b.b.s.
+      a(href='/') bbs
 
-    .wrapper.cf
-      section
-        ul.actions
-          if session
-            li
-              a(href='/posts') my posts
-            li
-              a(href='/chat') chat
-            li
-              a(href='/discover') discover
-            li
-              a(href='/links') more
-            block tips
-        if session
-          #auth
-            a(href='/logout') log out
+    ul.actions
+      if session
+        li
+          a(href='/posts') my posts
+        li
+          a(href='/discover') discover
+        li
+          a(href='/links') more
+        li
+          a(href='/logout') log out
+        block tips
+
+    block subheader
+
+    .wrapper
       .content
         block content
         block login
@@ -48,11 +46,6 @@ html
               button(type='submit') send my PIN
 
         block footer
-          .footer
-            p Powered by&#xa0;
-              a(href='http://digitalocean.com', target='_blank') DigitalOcean
-              | &#xa0;and&#xa0;
-              a(href='https://www.twilio.com/docs/howto/two-factor-authentication/?utm_medium=banner&utm_source=bbs&utm_campaign=footer-web&utm_content=powered-by', target='_blank') Twilio
 
     block scripts
 
