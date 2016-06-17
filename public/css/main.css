@@ -147,4 +147,5 @@ pre {
   padding: 10px;
   margin-top: 10px;
   white-space: pre-wrap;
+  max-width: 600px;
 }
