@@ -165,6 +165,7 @@ form input[type=text] {
 pre {
   padding: 10px;
   margin-top: 10px;
+  overflow: hidden;
   white-space: pre-wrap;
   max-width: 800px;
 }
