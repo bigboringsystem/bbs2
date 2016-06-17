@@ -168,3 +168,12 @@ pre {
   white-space: pre-wrap;
   max-width: 800px;
 }
+
+.reply-content {
+  background-color: #fff;
+  margin-bottom: 2px;
+}
+
+.reply-content form {
+  float: right;
+}
