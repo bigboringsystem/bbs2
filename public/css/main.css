@@ -114,6 +114,12 @@ button {
   margin: 5px 0;
 }
 
+.smooth {
+  width: 300px;
+  height: 200px;
+  display: block;
+}
+
 section {
   margin: 10px 0;
 }

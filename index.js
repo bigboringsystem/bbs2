@@ -20,7 +20,7 @@ server.register([Scooter,
   {
     register: Blankie,
     options: {
-      defaultSrc: 'self',
+      defaultSrc: ['self', 'https://www.youtube.com'],
       connectSrc: ['ws:', 'wss:', 'self'],
       imgSrc: ['self', 'data:'],
       scriptSrc: 'self',
