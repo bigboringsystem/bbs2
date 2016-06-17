@@ -20,7 +20,7 @@ block content
         h2 Your operators for this system
         for op in ops
           p
-            a(href='/user/#{op.uid}')!= op.name
+            a(href='/user/' + op.uid)!= op.name
 
         +rules
     else
