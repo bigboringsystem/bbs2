@@ -1,6 +1,6 @@
 # big boring system
 
-[![Dependency Status](https://david-dm.org/bigboringsystem/bigboringsystem.svg)](https://david-dm.org/bigboringsystem/bbs2)  [![devDependency Status](https://david-dm.org/bigboringsystem/bigboringsystem/dev-status.svg)](https://david-dm.org/bigboringsystem/bbs2#info=devDependencies)
+[![Dependency Status](https://david-dm.org/bigboringsystem/bbs2.svg)](https://david-dm.org/bigboringsystem/bbs2)  [![devDependency Status](https://david-dm.org/bigboringsystem/bb2/dev-status.svg)](https://david-dm.org/bigboringsystem/bbs2#info=devDependencies)
 
 ## Feel like contributing?
 
