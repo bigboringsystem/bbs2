@@ -3,6 +3,8 @@ extend layout
 block content
   h1 community listing
 
+  p= '* are operators'
+
   ul.links.links-users
     for user in users
       li(class=user.op ? "op" : "")
