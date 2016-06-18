@@ -169,6 +169,8 @@ pre {
   overflow: hidden;
   white-space: pre-wrap;
   max-width: 800px;
+  line-height: 0.9rem;
+  font-size: 0.9rem;
 }
 
 #replies {
@@ -191,4 +193,27 @@ pre {
   position: absolute;
   top: -10px;
   right: -30px;
+}
+
+@media screen and (max-width: 560px) {
+  #posts .reply, .reply-to-post, .posted, time {
+    font-size: 0.8rem;
+  }
+
+  pre {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+  }
+
+  .user {
+    display: block;
+  }
+
+  .user section {
+    min-width: 93vw;
+  }
+
+  .user section:last-child {
+    margin-bottom: 10px;
+  }
 }
