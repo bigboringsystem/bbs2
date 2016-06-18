@@ -7,34 +7,8 @@ block subheader
     if userOp
       p This user is an operator
 
-    if op && !userOp && !banned
-      form(method='post', action='/ban')
-        input(type='hidden', name='phone', value=phone)
-        input(type='hidden', name='uid', value=uid)
-        input(type='hidden', name='crumb', value=crumb)
-        button.ban(type='submit') ban this account
-
     if banned
       p This account is currently banned.
-
-      if op
-        form(method='post', action='/unban')
-          input(type='hidden', name='phone', value=phone)
-          input(type='hidden', name='uid', value=uid)
-          input(type='hidden', name='crumb', value=crumb)
-          button.unban(type='submit') unban this account
-
-    if session && (uid !== session)
-      if muted
-        form(method='post', action='/unmute')
-          input(type='hidden', name='uid', value=uid)
-          input(type='hidden', name='crumb', value=crumb)
-          button.unban(type='submit') unmute
-      else
-        form(method='post', action='/mute')
-          input(type='hidden', name='uid', value=uid)
-          input(type='hidden', name='crumb', value=crumb)
-          button.unban(type='submit') mute
 
     .user
       section
@@ -58,14 +32,43 @@ block content
       if next && lastKey
         a(href='/user/' + uid + '?last=' + lastKey) older
 
-  if op && !userOp
-    h2.delete-account Delete account
+  if session && (uid !== session)
+    section
+      if muted
+        form(method='post', action='/unmute')
+          input(type='hidden', name='uid', value=uid)
+          input(type='hidden', name='crumb', value=crumb)
+          button.unban(type='submit') unmute
+      else
+        form(method='post', action='/mute')
+          input(type='hidden', name='uid', value=uid)
+          input(type='hidden', name='crumb', value=crumb)
+          button.unban(type='submit') mute
 
-    p If you delete this account, all posts associated with this will be removed.
+  section
+    if op && !userOp
+      h2.delete-account Delete account
 
-    form(method='post', action='/deleteaccount')
-      input(type='hidden', name='uid', value=uid)
-      input(type='hidden', name='crumb', value=crumb)
-      button.ban(type='submit') delete account
+      p If you delete this account, all posts associated with this will be removed.
+
+      form(method='post', action='/deleteaccount')
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
+        button.ban(type='submit') delete account
+
+    if banned && op
+      form(method='post', action='/unban')
+        input(type='hidden', name='phone', value=phone)
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
+        button.unban(type='submit') unban this account
+
+    if op && !userOp && !banned
+      form(method='post', action='/ban')
+        input(type='hidden', name='phone', value=phone)
+        input(type='hidden', name='uid', value=uid)
+        input(type='hidden', name='crumb', value=crumb)
+        button.ban(type='submit') ban this account
+
 
 block login
