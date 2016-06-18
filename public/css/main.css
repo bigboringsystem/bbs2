@@ -169,7 +169,7 @@ pre {
   overflow: hidden;
   white-space: pre-wrap;
   max-width: 800px;
-  line-height: 0.9rem;
+  line-height: 1rem;
   font-size: 0.9rem;
 }
 
@@ -202,7 +202,7 @@ pre {
 
   pre {
     font-size: 0.8rem;
-    line-height: 0.85rem;
+    line-height: 0.9rem;
   }
 
   .user {
