@@ -22,7 +22,7 @@ server.register([Scooter,
     options: {
       defaultSrc: ['self', 'https://www.youtube.com'],
       connectSrc: ['ws:', 'wss:', 'self'],
-      imgSrc: ['self', 'http://www.google-analytics.com',
+      imgSrc: ['self', 'data:', 'http://www.google-analytics.com',
                'https://www.google-analytics.com'],
       scriptSrc: ['self', 'http://www.google-analytics.com',
                   'https://www.google-analytics.com',
