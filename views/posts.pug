@@ -6,7 +6,7 @@ block content
   form(method='post', action='/post')
     section
       label reply links to previous posts? (space delimited)
-        input#reply-to(type='text', name='reply')
+        input#reply-to(type='text', name='reply', value=replyTo)
     section
       label content
         textarea(rows='10', cols='90', name='content', required)
