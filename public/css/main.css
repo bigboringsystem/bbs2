@@ -205,6 +205,11 @@ pre {
     line-height: 0.9rem;
   }
 
+  .user-wrapper {
+    float: left;
+    margin-bottom: 10px;
+  }
+
   .user {
     display: block;
   }
