@@ -114,12 +114,18 @@ button {
   margin: 5px 0;
 }
 
+.links-users {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .links-users li {
-  margin: 1% 0 0;
-  width: 30%;
+  margin: 2px 4px;
+  width: 142px;
   float: left;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: #fff;
 }
 
 li.op:before {
