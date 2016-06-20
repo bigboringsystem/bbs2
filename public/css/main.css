@@ -126,6 +126,7 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   background-color: #fff;
+  padding: 2px;
 }
 
 li.op:before {
